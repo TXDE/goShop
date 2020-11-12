@@ -39,7 +39,7 @@
                 </section>
                 <section class="login_message">
                   <input type="text" maxlength="11" placeholder="验证码" v-model="captcha">
-                  <img class="get_verification" src="http://localhost:4000/captcha" alt="captcha" @click="getCaptcha">
+                  <img class="get_verification" src="http://localhost:4000/captcha" alt="captcha" @click="getCaptcha" ref="captcha">
                 </section>
               </section>
             </div>
@@ -58,7 +58,7 @@
 
 <script>
 import AlertTip from '../AlertTip/AlertTip'
-import {reqCode} from '../../api'
+import {reqCode, reqLoginSms, reqLogin} from '../../api'
 
 export default {
   components: {AlertTip},
@@ -109,25 +109,44 @@ export default {
       this.alertText = alertText
     },
     // 实现异步登录
-    login () {
+    async login () {
+      let result
       if (this.loginWay) {
         const {rightPhone, phone, code} = this
         if (!rightPhone) {
           this.showAlertText('手机号不正确')
+          return false
         } else if (!/^\d{6}$/.test(code)) {
           this.showAlertText('手机号不正确')
+          return false
         } else if (!phone) {
           this.showAlertText('手机号不正确')
+          return false
         }
+        result = await reqLoginSms(phone, code)
       } else {
         const { name, pwd, captcha } = this
         if (!name) {
           this.showAlertText('手机号不正确')
+          return false
         } else if (!captcha) {
           this.showAlertText('手机号不正确')
+          return false
         } else if (!pwd) {
           this.showAlertText('手机号不正确')
+          return false
         }
+        result = await reqLogin(name, pwd, captcha)
+      }
+      if (result.code === 0) {
+        const user = result.data
+        // 保存到vuex的state中
+        console.log(user)
+        this.$router.replace('/profile')
+      } else {
+        const msg = result.msg
+        this.getCaptcha()
+        this.showAlertText(msg)
       }
     },
     closeTip () {
@@ -135,7 +154,7 @@ export default {
       this.showAlert = false
     },
     getCaptcha (event) {
-      event.target.src = 'http://localhost:4000/captcha?time=' + Date.now()
+      this.$refs.captcha.src = 'http://localhost:4000/captcha?time=' + Date.now()
     }
   }
 }
