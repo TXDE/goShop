@@ -1,23 +1,25 @@
 /*
 包含n个接口请求函数的模块
  */
-import ajax from "./ajax";
+import ajax from './ajax'
 
-export const reqAddress = (geohash) => ajax(`/position${geohash}`);
+const BASE_URL = '/api'
 
-export const reqFoodTypes = () => ajax('/index_category');
+export const reqAddress = (geohash) => ajax(`${BASE_URL}/position/${geohash}`)
 
-export const reqShopList = (latitude, longitude) => ajax(`/shops`, {longitude, latitude});
+export const reqFoodTypes = () => ajax(BASE_URL + '/index_category')
 
-export const reqSearchShop = (keyword, geohash) => ajax('/search_shops', {keyword, geohash});
+export const reqShopList = (latitude, longitude) => ajax(BASE_URL + '/shops', {longitude, latitude})
 
-export const reqCaptcha = () => ajax('/captcha');
+export const reqSearchShop = (keyword, geohash) => ajax(BASE_URL + '/search_shops', {keyword, geohash})
 
-export const reqLogin = (name, pwd, captcha) => ajax('/login_pwd', {name, pwd, captcha}, 'POST');
+export const reqCaptcha = () => ajax('/captcha')
 
-export const reqCode = (phone) => ajax('/sendcode', {phone});
+export const reqLogin = (name, pwd, captcha) => ajax(BASE_URL + '/login_pwd', {name, pwd, captcha}, 'POST')
 
-export const reqLoginSms = (phone, code) => ajax('/login_sms', {phone, code}, "POST");
+export const reqCode = (phone) => ajax(BASE_URL + '/sendcode', {phone})
 
-export const reqUserInfo = () => ajax('/userinfo');
-export const reqLogout = () => ajax('/logout');
+export const reqLoginSms = (phone, code) => ajax(BASE_URL + '/login_sms', {phone, code}, 'POST')
+
+export const reqUserInfo = () => ajax(BASE_URL + '/userinfo')
+export const reqLogout = () => ajax(BASE_URL + '/logout')
