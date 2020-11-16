@@ -4,7 +4,8 @@
 import {
   reqAddress,
   reqFoodTypes,
-  reqShopList
+  reqShopList,
+  reqUserInfo
 } from '../api'
 import {RECEIVE_SHOPS, RECEIVE_FOODTYPES, RECEIVE_ADDRESS, RECEIVE_USERINFO} from './mutation-types'
 
@@ -43,5 +44,13 @@ export default {
   // 同步记录用户信息
   recordUser ({commit}, userInfo) {
     commit(RECEIVE_USERINFO, {userInfo})
+  },
+  // 异步获取用户信息
+  async getUserInfo ({commit}) {
+    const result = await reqUserInfo()
+    if (result.code === 0) {
+      const userInfo = result.data
+      commit(RECEIVE_USERINFO, {userInfo})
+    }
   }
 }
