@@ -59,6 +59,7 @@
 <script>
 import AlertTip from '../AlertTip/AlertTip'
 import {reqCode, reqLoginSms, reqLogin} from '../../api'
+import {mapActions} from 'vuex'
 
 export default {
   components: {AlertTip},
@@ -83,6 +84,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['recordUser']),
     // 异步获取验证码
     async getCode () {
       if (!this.computeTime) {
@@ -140,7 +142,7 @@ export default {
       }
       if (result.code === 0) {
         const user = result.data
-        // 保存到vuex的state中
+        this.recordUser(user)
         console.log(user)
         this.$router.replace('/profile')
       } else {
