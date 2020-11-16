@@ -9,7 +9,6 @@ import Shop from '../pages/Shop/Shop'
 import ShopGoods from '../pages/Shop/ShopGoods/ShopGoods'
 import ShopRatings from '../pages/Shop/ShopRatings/ShopRatings'
 import ShopInfo from '../pages/Shop/ShopInfo/ShopInfo'
-import ShopList from '../components/ShopList/ShopList'
 
 Vue.use(Router)
 
