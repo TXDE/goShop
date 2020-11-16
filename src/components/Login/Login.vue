@@ -143,7 +143,6 @@ export default {
       if (result.code === 0) {
         const user = result.data
         this.recordUser(user)
-        console.log(user)
         this.$router.replace('/profile')
       } else {
         const msg = result.msg
