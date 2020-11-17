@@ -22,4 +22,11 @@ export const reqCode = (phone) => ajax(BASE_URL + '/sendcode', {phone})
 export const reqLoginSms = (phone, code) => ajax(BASE_URL + '/login_sms', {phone, code}, 'POST')
 
 export const reqUserInfo = () => ajax(BASE_URL + '/userinfo')
+
 export const reqLogout = () => ajax(BASE_URL + '/logout')
+
+export const reqShopInfo = () => ajax('/info')
+
+export const reqShopRatings = () => ajax('/ratings')
+
+export const reqShopGodds = () => ajax('/goods')
