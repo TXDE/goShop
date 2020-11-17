@@ -1,4 +1,4 @@
-import Mock from 'mock.js'
+import Mock from 'mockjs'
 import data from './data.json'
 
 // 返回goods的接口
