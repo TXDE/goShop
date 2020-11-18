@@ -93,12 +93,12 @@ export default {
     }
   },
   // 异步获取商家商品列表
-  async getShopGoods ({commit}, cb) {
+  async getShopGoods ({commit}, callback) {
     const result = await reqShopGodds()
     if (result.code === 0) {
       const goods = result.data
       commit(RECEIVE_GOODS, {goods})
-      cb && cb()
+      callback && callback()
     }
   }
 }
