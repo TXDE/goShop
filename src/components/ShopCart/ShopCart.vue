@@ -19,7 +19,7 @@
         </div>
       </div>
       <transition name="move">
-        <div class="shopcart-list" v-show="isShow">
+        <div class="shopcart-list" v-show="listShow">
           <div class="list-header">
             <h1 class="title">购物车</h1>
             <span class="empty">清空</span>
@@ -30,22 +30,23 @@
                 <span class="name">{{food.name}}</span>
                 <div class="price"><span>￥{{food.price}}</span></div>
                 <div class="cartcontrol-wrapper">
-                  <CartControl :food="food"/>
+                  <cart-control :food="food"></cart-control>
                 </div>
               </li>
             </ul>
           </div>
         </div>
       </transition>
-
     </div>
-    <div class="list-mask" v-show="isShow" @click="toggleShow"></div>
+    <div class="list-mask" v-show="listShow" @click="toggleShow"></div>
   </div>
 </template>
 
 <script>
 import {mapState, mapGetters} from 'vuex'
+import CartControl from '../CartControl/CartControl'
 export default {
+  components: {CartControl},
   data () {
     return {
       isShow: false
@@ -69,11 +70,20 @@ export default {
       } else {
         return '结算'
       }
+    },
+    listShow () {
+      if (this.totalCount === 0) {
+        this.isShow = false
+        return false
+      }
+      return this.isShow
     }
   },
   methods: {
     toggleShow () {
-      this.isShow = !this.isShow
+      if (this.totalCount > 0) {
+        this.isShow = !this.isShow
+      }
     }
   }
 }
