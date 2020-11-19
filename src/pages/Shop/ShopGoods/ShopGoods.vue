@@ -85,7 +85,9 @@ export default {
     // 初始化滑动
     _initScroll () {
       /* eslint-disable no-new */
-      new BScroll('.menu-wrapper', {})
+      new BScroll('.menu-wrapper', {
+        click: true
+      })
       this.foodsScroll = new BScroll('.foods-wrapper', {
         probeType: 3
       })

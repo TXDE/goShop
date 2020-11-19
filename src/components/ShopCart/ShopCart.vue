@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import BScroll from 'better-scroll'
 import {mapState, mapGetters} from 'vuex'
 import CartControl from '../CartControl/CartControl'
 export default {
@@ -75,6 +76,14 @@ export default {
       if (this.totalCount === 0) {
         this.isShow = false
         return false
+      }
+      if (this.isShow) {
+        this.$nextTick(() => {
+          /* eslint-disable no-new */
+          new BScroll('.list-content',{
+            click: true
+          })
+        })
       }
       return this.isShow
     }
