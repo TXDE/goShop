@@ -1,6 +1,7 @@
 <template>
-  <div class="goods">
-    <div class="menu-wrapper">
+  <div>
+    <div class="goods">
+      <div class="menu-wrapper">
       <ul>
         <li class="menu-item" v-for="(good,index) in goods" :key="index" :class="{current:index===currentIndex}" @click="clickMenuItem(index)">
             <span class="text bottom-border-1px">
@@ -10,12 +11,12 @@
         </li>
       </ul>
     </div>
-    <div class="foods-wrapper">
+      <div class="foods-wrapper">
       <ul ref="foodsUl">
         <li class="food-list-hook" v-for="(good,index) in goods" :key="index">
           <h1 class="title">{{ good.name }}</h1>
           <ul>
-            <li class="food-item bottom-border-1px" v-for="(food,index) in good.foods" :key="index">
+            <li class="food-item bottom-border-1px" v-for="(food,index) in good.foods" :key="index" @click="showFood(food)">
               <div class="icon">
                 <img width="57" height="57" :src="food.icon">
               </div>
@@ -37,6 +38,8 @@
         </li>
       </ul>
     </div>
+    </div>
+    <Food :food="food" ref="food"></Food>
   </div>
 </template>
 
@@ -44,15 +47,17 @@
 import {mapState} from 'vuex'
 import BScroll from 'better-scroll'
 import CartControl from '../../../components/CartControl/CartControl'
+import Food from '../../../components/Food/Food'
 
 export default {
-  components: {CartControl},
+  components: {Food, CartControl},
   data () {
     return {
       // 右侧滑动的Y轴坐标(在滑动中,实时手机scrollY的值)
       scrollY: 0,
       // 所有右侧分类li的top组成的数组(列表第一次显示就不再变化)
-      tops: []
+      tops: [],
+      food: {}
     }
   },
   mounted () {
@@ -101,6 +106,10 @@ export default {
     clickMenuItem (index) {
       const y = this.tops[index]
       this.foodsScroll.scrollTo(0, -y, 300)
+    },
+    showFood (food) {
+      this.food = food
+      this.$refs.food.toggleShow()
     }
   }
 }

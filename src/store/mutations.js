@@ -1,7 +1,8 @@
 /*
 直接更新state的多个方法的对象
  */
-import {RECEIVE_ADDRESS, RECEIVE_FOODTYPES, RECEIVE_SHOPS, RECEIVE_USERINFO, RESET_USERINFO, RECEIVE_GOODS, RECEIVE_INFO, RECEIVE_RATINGS} from './mutation-types'
+import Vue from 'vue'
+import {RECEIVE_ADDRESS, RECEIVE_FOODTYPES, RECEIVE_SHOPS, RECEIVE_USERINFO, RESET_USERINFO, RECEIVE_GOODS, RECEIVE_INFO, RECEIVE_RATINGS, DECREMENT_FOOD_COUNT, INCREMENT_FOOD_COUNT} from './mutation-types'
 
 export default {
   [RECEIVE_ADDRESS] (state, {address}) {
@@ -27,5 +28,18 @@ export default {
   },
   [RECEIVE_INFO] (state, {info}) {
     state.info = info
+  },
+  [DECREMENT_FOOD_COUNT] (state, {food}) {
+    if (!food.count) {
+      Vue.set(food, 'count', 1)
+      food.conunt = 1
+    } else {
+      food.count++
+    }
+  },
+  [INCREMENT_FOOD_COUNT] (state, {food}) {
+    if (food.count) {
+      food.count--
+    }
   }
 }
