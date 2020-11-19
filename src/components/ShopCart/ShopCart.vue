@@ -19,10 +19,10 @@
         </div>
       </div>
       <transition name="move">
-        <div class="shopcart-list" v-show="listShow">
+        <div class="shopcart-list" v-show="isShow">
           <div class="list-header">
             <h1 class="title">购物车</h1>
-            <span class="empty" @click="clearCart">清空</span>
+            <span class="empty">清空</span>
           </div>
           <div class="list-content">
             <ul>
@@ -39,16 +39,42 @@
       </transition>
 
     </div>
-    <div class="list-mask" v-show="listShow" @click="toggleShow"></div>
+    <div class="list-mask" v-show="isShow" @click="toggleShow"></div>
   </div>
 </template>
 
 <script>
 import {mapState, mapGetters} from 'vuex'
 export default {
+  data () {
+    return {
+      isShow: false
+    }
+  },
   computed: {
-    ...mapState(['cartFoods','info']),
-    ...mapGetters(['totalCount', 'totalPrice'])
+    ...mapState(['cartFoods', 'info']),
+    ...mapGetters(['totalCount', 'totalPrice']),
+    payClass () {
+      const {totalPrice} = this
+      const {minPrice} = this.info
+      return totalPrice >= minPrice ? 'enough' : 'not-enough'
+    },
+    payText () {
+      const {totalPrice} = this
+      const {minPrice} = this.info
+      if (totalPrice === 0) {
+        return `¥${minPrice}`
+      } else if (totalPrice < minPrice) {
+        return `还差¥${minPrice - totalPrice}元起送`
+      } else {
+        return '结算'
+      }
+    }
+  },
+  methods: {
+    toggleShow () {
+      this.isShow = !this.isShow
+    }
   }
 }
 </script>
