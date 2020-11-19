@@ -40,6 +40,7 @@
     </div>
     </div>
     <Food :food="food" ref="food"></Food>
+    <ShopCart></ShopCart>
   </div>
 </template>
 
@@ -48,9 +49,10 @@ import {mapState} from 'vuex'
 import BScroll from 'better-scroll'
 import CartControl from '../../../components/CartControl/CartControl'
 import Food from '../../../components/Food/Food'
+import ShopCart from '../../../components/ShopCart/ShopCart'
 
 export default {
-  components: {Food, CartControl},
+  components: {ShopCart, Food, CartControl},
   data () {
     return {
       // 右侧滑动的Y轴坐标(在滑动中,实时手机scrollY的值)
