@@ -19,5 +19,7 @@ export default {
   // 商家评价列表
   ratings: [],
   // 商家信息
-  info: {}
+  info: {},
+  // 购物车中食物列表
+  cartFoods: []
 }
