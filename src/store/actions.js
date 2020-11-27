@@ -21,7 +21,8 @@ import {
   RECEIVE_GOODS,
   RECEIVE_RATINGS,
   INCREMENT_FOOD_COUNT,
-  DECREMENT_FOOD_COUNT
+  DECREMENT_FOOD_COUNT,
+  CLEAR_CARTS
 } from './mutation-types'
 
 export default {
@@ -86,12 +87,12 @@ export default {
     }
   },
   // 异步获取商家评价列表
-  async getShopRatings ({commit}, cb) {
+  async getShopRatings ({commit}, callback) {
     const result = await reqShopRatings()
     if (result.code === 0) {
       const ratings = result.data()
       commit(RECEIVE_RATINGS, {ratings})
-      cb && cb()
+      callback && callback()
     }
   },
   // 异步获取商家商品列表
@@ -110,5 +111,9 @@ export default {
     } else {
       commit(DECREMENT_FOOD_COUNT, {food})
     }
+  },
+  // 清空购物车
+  clearCarts ({commit}) {
+    commit(CLEAR_CARTS)
   }
 }

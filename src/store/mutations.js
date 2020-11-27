@@ -2,7 +2,7 @@
 直接更新state的多个方法的对象
  */
 import Vue from 'vue'
-import {RECEIVE_ADDRESS, RECEIVE_FOODTYPES, RECEIVE_SHOPS, RECEIVE_USERINFO, RESET_USERINFO, RECEIVE_GOODS, RECEIVE_INFO, RECEIVE_RATINGS, DECREMENT_FOOD_COUNT, INCREMENT_FOOD_COUNT} from './mutation-types'
+import {RECEIVE_ADDRESS, RECEIVE_FOODTYPES, RECEIVE_SHOPS, RECEIVE_USERINFO, RESET_USERINFO, RECEIVE_GOODS, RECEIVE_INFO, RECEIVE_RATINGS, DECREMENT_FOOD_COUNT, INCREMENT_FOOD_COUNT, CLEAR_CARTS} from './mutation-types'
 
 export default {
   [RECEIVE_ADDRESS] (state, {address}) {
@@ -44,5 +44,9 @@ export default {
         state.cartFoods.splice(state.cartFoods.indexOf(food), 1)
       }
     }
+  },
+  [CLEAR_CARTS] (state) {
+    state.cartFoods.forEach(food => { food.count = 0 })
+    state.cartFoods = []
   }
 }
