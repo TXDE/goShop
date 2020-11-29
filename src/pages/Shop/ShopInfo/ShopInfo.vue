@@ -56,7 +56,17 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
+  data () {
+    return {
+      supportClasses: ['activity-green', 'activity-red', 'activity-orange']
+    }
+  },
+  computed: {
+    ...mapState(['info']),
+
+  }
 }
 </script>
 
