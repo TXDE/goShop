@@ -30,7 +30,7 @@
       <div class="ratingselect">
         <div class="rating-type border-1px">
           <span class="block positive" :class="{active: selectType===2}" @click="setSelectType(2)">
-            全部<span class="count">{{ ratings.length }}</span>
+            全部<span class="count" @click="setSelectType(2)">{{ ratings.length }}</span>
           </span>
           <span class="block positive" :class="{active: selectType===0}" @click="setSelectType(0)">
             满意<span class="count">{{ positiveSize }}</span>
@@ -73,18 +73,32 @@
 
 <script>
 import Start from '../../../components/Start/Start'
-import {mapState, mapActions} from 'vuex'
+import {mapState, mapActions, mapGetters} from 'vuex'
 import BScroll from 'better-scroll'
 
 export default {
   components: {
     Start
   },
+  data () {
+    return {
+      onlyShowText: true,
+      selectType: 2
+    }
+  },
   mounted () {
     this.getShopRatings()
   },
   computed: {
-    ...mapState(['info', 'ratings'])
+    ...mapGetters(['positiveSize']),
+    ...mapState(['info', 'ratings']),
+    filterRatings () {
+      const {ratings, onlyShowText, selectType} = this
+      return ratings.filter(rating => {
+        const {rateType, text} = rating
+        return (selectType === 2 || selectType === rateType) && (!onlyShowText || text.length > 0)
+      })
+    }
   },
   methods: {
     ...mapActions(['getShopRatings'], () => {
@@ -94,7 +108,13 @@ export default {
           click: true
         })
       })
-    })
+    }),
+    setSelectType (selectType) {
+      this.selectType = selectType
+    },
+    toggleOnlyShowText () {
+      this.onlyShowText = !this.onlyShowText
+    }
   }
 }
 </script>
