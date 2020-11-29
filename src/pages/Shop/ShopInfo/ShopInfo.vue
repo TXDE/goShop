@@ -68,17 +68,32 @@ export default {
     ...mapState(['info'])
   },
   mounted () {
-    // eslint-disable-next-line no-new
-    new BScroll('.shop-info')
-    const ul = this.$refs.picsUl
-    const liWidth = 120
-    const space = 6
-    const count = this.info.pics.length
-    ul.style.width = (liWidth + space) * count - space + 'px'
-    // eslint-disable-next-line no-new
-    new BScroll('.pic-wrapper', {
-      scrollX: true
-    })
+    if (!this.info.pics) {
+      return
+    }
+    this._initScroll()
+  },
+  watch: {
+    info () {
+      this.$nextTick(() => {
+        this._initScroll()
+      })
+    }
+  },
+  methods: {
+    _initScroll () {
+      // eslint-disable-next-line no-new
+      new BScroll('.shop-info')
+      const ul = this.$refs.picsUl
+      const liWidth = 120
+      const space = 6
+      const count = this.info.pics.length
+      ul.style.width = (liWidth + space) * count - space + 'px'
+      // eslint-disable-next-line no-new
+      new BScroll('.pic-wrapper', {
+        scrollX: true
+      })
+    }
   }
 }
 </script>
