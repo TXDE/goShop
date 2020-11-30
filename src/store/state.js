@@ -21,5 +21,7 @@ export default {
   // 商家信息
   info: {},
   // 购物车中食物列表
-  cartFoods: []
+  cartFoods: [],
+  // 搜索商家列表
+  searchShops: []
 }
