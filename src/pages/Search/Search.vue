@@ -38,7 +38,7 @@ export default {
     return {
       keyword: '',
       noSearchShops: false,
-      imgBaseUrl: ''
+      imgBaseUrl: 'http://cangdu.org:8001/img/'
     }
   },
   components: {HeaderTop},
@@ -51,6 +51,15 @@ export default {
       const keyword = this.keyword.trim()
       if (keyword) {
         this.getSearchShops(keyword)
+      }
+    }
+  },
+  watch: {
+    searchShops (value) {
+      if (!value.length) {
+        this.noSearchShops = true
+      } else {
+        this.noSearchShops = false
       }
     }
   }
