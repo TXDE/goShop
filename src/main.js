@@ -6,9 +6,17 @@ import router from './router'
 import store from './store'
 import {Button, MessageBox} from 'mint-ui'
 import './mock/mockServer'// 加载mockServer即可
+import VueLazyload from 'vue-lazyload'
+import loading from './assets/imgs/loading.gif'
+import './filters'
 // 注册全局组件标签
 Vue.component(Button.name, Button)
 Vue.component(MessageBox.name, MessageBox)
+Vue.use(VueLazyload, {
+  preload: 1.3,
+  loading: loading,
+  attempt: 1
+})
 
 Vue.config.productionTip = false
 
