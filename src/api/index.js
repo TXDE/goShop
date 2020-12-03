@@ -29,4 +29,4 @@ export const reqShopInfo = () => ajax('/info')
 
 export const reqShopRatings = () => ajax('/ratings')
 
-export const reqShopGodds = () => ajax('/goods')
+export const reqShopGoods = () => ajax('/goods')
