@@ -126,5 +126,5 @@ export default {
       const searchShops = result.data
       commit(RECEIVE_SEARCH_SHOPS, {searchShops})
     }
-  },
+  }
 }
